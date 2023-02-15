@@ -10,7 +10,7 @@ PS: __[链接:VSCODE的STM32开发环境搭建](https://...)__.
 
 ## 目标&功能
 下图取自官方文档,DIY要做的就是实现其中的Debug Unit.
-![](https://raw.githubusercontent.com/ZeroPunchMan/archive/main/img/CMSIS_DAP_INTERFACE.png)
+![](https://raw.githubusercontent.com/ZeroPunchMan/articles/main/img/CMSIS_DAP_INTERFACE.png)
 
 整体功能大概就是两部分: __与主机的USB通讯__; ___与目标机的DAP接口通讯__.
 
