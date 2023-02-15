@@ -9,66 +9,66 @@
 
 $$q = cos\alpha + sin\alpha*\vec{v}$$
 
-其中$\vec{v}$为单位向量,则四元数q为单位四元数,对于一点$p$,${p}'=qpq^{-1}$ 代表$p$绕 $\vec{v}$ 旋转$2\alpha$角度后的位置
+其中$$\vec{v}$$为单位向量,则四元数q为单位四元数,对于一点$$p$$,$${p}'=qpq^{-1}$$ 代表$$p$$绕 $$\vec{v}$$ 旋转$$2\alpha$$角度后的位置
 
 ## 标准的Slerp
 
-$slerp(q_{1}, q_{2}, t) = \frac{sin((1-t)\theta)q_{1}+sin(t\theta)q_{2}}{sin\theta}$
+$$slerp(q_{1}, q_{2}, t) = \frac{sin((1-t)\theta)q_{1}+sin(t\theta)q_{2}}{sin\theta}$$
 
-其中$\theta$为$q_{1}$和$q_{2}$的夹角,即$cos\theta = dot(q_{1}, q_{2})$
+其中$$\theta$$为$$q_{1}$$和$$q_{2}$$的夹角,即$$cos\theta = dot(q_{1}, q_{2})$$
 
 ## 我理解的Slerp
 
-那么对于从$q_{1}pq_{1}^{-1}$到$q_{2}pq_{2}^{-1}$,需要经过一个中间四元数为$q_{m}$,使得
+那么对于从$$q_{1}pq_{1}^{-1}$$到$$q_{2}pq_{2}^{-1}$$,需要经过一个中间四元数为$$q_{m}$$,使得
 
 $$q_{m}(q_{1}pq_{1}^{-1})q_{m}^{-1} = q_{2}pq_{2}^{-1}$$
 
 所以这个中间四元数为
 
-$q_{m} = q_{2} * q_{1}^{-1}$
+$$q_{m} = q_{2} * q_{1}^{-1}$$
 
-把$q_{m}$写成旋转形式
+把$$q_{m}$$写成旋转形式
 
-$q_{m} = cos\theta + sin\theta*\vec{v_{m}}$
+$$q_{m} = cos\theta + sin\theta*\vec{v_{m}}$$
 
-即从$q_{1}$到$q_{2}$需要绕$v_{m}$旋转$2\theta$角度,按照我的理解,$slerp(q_{1}, q_{2}, t)$就是绕$v_{m}$旋转$t*2\theta$角度,即如下形式:
+即从$$q_{1}$$到$$q_{2}$$需要绕$$v_{m}$$旋转$$2\theta$$角度,按照我的理解,$$slerp(q_{1}, q_{2}, t)$$就是绕$$v_{m}$$旋转$$t*2\theta$$角度,即如下形式:
 
-$slerp(q_{1}, q_{2}, t) = cos(t\theta) + sin(t\theta)*\vec{v_{m}}$
+$$slerp(q_{1}, q_{2}, t) = cos(t\theta) + sin(t\theta)*\vec{v_{m}}$$
 
 为了方便区分,写成如下单位四元数的指数形式
 
-$cos(t\theta) + sin(t\theta)*\vec{v_{m}} = q_{m}^{t}$
+$$cos(t\theta) + sin(t\theta)*\vec{v_{m}} = q_{m}^{t}$$
 
-这样写的好处在于,$\vec{v}$相同的单位四元数相乘,就等于角度相加的结果.
+这样写的好处在于,$$\vec{v}$$相同的单位四元数相乘,就等于角度相加的结果.
 
 ## 证明
 
 需要证明的是,以上两种算法,其实结果相同,即
 
-$slerp(q_{1}, q_{2}, t) = q_{m}^{t} * q_{1}$
+$$slerp(q_{1}, q_{2}, t) = q_{m}^{t} * q_{1}$$
 
-很容易验证(展开即可),$q_{m}$中的$cos\theta$与$dot(q_{1}, q_{2})$相等(所以Slerp和$q_{m}$都是写作$\theta$),且上式可以变形如下
+很容易验证(展开即可),$$q_{m}$$中的$$cos\theta$$与$$dot(q_{1}, q_{2})$$相等(所以Slerp和$$q_{m}$$都是写作$$\theta$$),且上式可以变形如下
 
-$slerp(q_{1}, q_{2}, t) * q_{1}^{-1} = q_{m}^{t}$
+$$slerp(q_{1}, q_{2}, t) * q_{1}^{-1} = q_{m}^{t}$$
 
 把式子左边展开即可
 
-$left=\frac{sin((1-t)\theta)q_{1}+sin(t\theta)q_{2}}{sin\theta} * q_{1}^{-1}$
+$$left=\frac{sin((1-t)\theta)q_{1}+sin(t\theta)q_{2}}{sin\theta} * q_{1}^{-1}$$
 
-$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)}{sin\theta}q_{2}*q_{1}^{-1}$
+$$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)}{sin\theta}q_{2}*q_{1}^{-1}$$
 
-带入$q_{m} = q_{2} * q_{1}^{-1}$
+带入$$q_{m} = q_{2} * q_{1}^{-1}$$
 
-$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)}{sin\theta}q_{m}$
+$$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)}{sin\theta}q_{m}$$
 
-$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)}{sin\theta}(cos\theta + sin\theta*\vec{v_{m}})$
+$$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)}{sin\theta}(cos\theta + sin\theta*\vec{v_{m}})$$
 
-$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)cos\theta}{sin\theta} + sin(t\theta)*\vec{v_{m}}$
+$$=\frac{sin((1-t)\theta)}{sin\theta} + \frac{sin(t\theta)cos\theta}{sin\theta} + sin(t\theta)*\vec{v_{m}}$$
 
-$=cos(t\theta) + sin(t\theta)*\vec{v_{m}} = q_{m}^{t}$
+$$=cos(t\theta) + sin(t\theta)*\vec{v_{m}} = q_{m}^{t}$$
 
 证毕.
 
 ## 总结
 
-很简单的计算，主要在于我理解的球形插值定义为$q_{m}^{t}q_{1}$,这里证明了与$\frac{sin((1-t)\theta)q_{1}+sin(t\theta)q_{2}}{sin\theta}$相等.
+很简单的计算，主要在于我理解的球形插值定义为$$q_{m}^{t}q_{1}$$,这里证明了与$$\frac{sin((1-t)\theta)q_{1}+sin(t\theta)q_{2}}{sin\theta}$$相等.
