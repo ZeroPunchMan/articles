@@ -6,7 +6,7 @@
 
 MCU选用STM32F103C8T6,用kicad画了个板子,软件开发环境为VSCODE.
 
-PS: __[链接:VSCODE的STM32开发环境搭建](https://...)__.
+PS: __[链接:VSCODE的STM32开发环境搭建](https://ZeroPunchMan.github.io/articles/embed/vscode-stm32)__.
 
 ## 目标&功能
 下图取自官方文档,DIY要做的就是实现其中的Debug Unit.
