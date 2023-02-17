@@ -26,11 +26,12 @@ VSCODE的项目大部分配置文件,都在项目的根目录下的.vscode文件
 
 配置文件可以直接新建,也可以从vscode的命令创建.
 
-1. c_cpp_properties.json 这个文件主要用来帮助vscode分析代码,减少没用的错误提示
+#### c_cpp_properties.json 
+这个文件主要用来帮助vscode分析代码,减少没用的错误提示
 ```
-    //主要配置项为
-    //"includePath": 即包含文件的路径
-    //"defines": 用到的宏定义
+//主要配置项为
+//"includePath": 即包含文件的路径
+//"defines": 用到的宏定义
 "configurations": [
 {
     "includePath": [
@@ -49,7 +50,7 @@ VSCODE的项目大部分配置文件,都在项目的根目录下的.vscode文件
 }    
 ```
 
-2. settings.json 
+#### settings.json 
 ```
 //"files.exclude": 在vscode中屏蔽这些路径,比如build下的各种.o文件
 
@@ -58,7 +59,6 @@ VSCODE的项目大部分配置文件,都在项目的根目录下的.vscode文件
     ".mxproject": true,
     "build": true,
 },
-
 ```
 
 ### 编译
